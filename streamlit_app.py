@@ -29,11 +29,13 @@ my_dataframe = session.table("smoothies.public.fruit_options")
 st.dataframe(data=my_dataframe, use_container_width=True)
 
 # Selecting cols
+st.subheader('Snowflake dataframe')
 from snowflake.snowpark.functions import col
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit_name'), col('search_on'))
 st.dataframe(data=my_dataframe, use_container_width=True)
 
 # Convert to a pandas dataframe
+st.subheader('Pandas dataframe')
 pd_df = my_dataframe.to_pandas()
 st.dataframe(data=pd_df)
 
