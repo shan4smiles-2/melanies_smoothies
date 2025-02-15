@@ -40,7 +40,7 @@ pd_df = my_dataframe.to_pandas()
 st.dataframe(data=pd_df)
 
 # Stop
-st.stop()
+# st.stop()
 
 # Using a multi select box
 ingredients_list = st.multiselect(
