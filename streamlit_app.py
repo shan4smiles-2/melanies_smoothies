@@ -10,7 +10,7 @@ st.write(
 )
 
 # Using text input
-name_on_order = st.text_input("Name on your Cup?").strip()
+name_on_order = st.text_input("Name on your Cup?")
 st.write("We wll call out: ", name_on_order)
 
 # Using a select box
@@ -74,13 +74,8 @@ if ingredients_list: # to show [] only when we select
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + search_on)
         st_df = st.dataframe(data = smoothiefroot_response.json(), use_container_width = True)
     
-    my_insert_stmt = ("""
-        insert into SMOOTHIES.PUBLIC.ORDERS (name_on_order, ingredients)
-        values('"""
-        + (name_on_order.lstrip()) + "', '" + (ingredients_string) +
-        """
-        ')
-    """)
+    my_insert_stmt = """ insert into smoothies.public.orders(ingredients)
+            values ('""" + ingredients_string + """')"""
     # st.write(my_insert_stmt)
 
     time_to_insert = st.button("Submit")
