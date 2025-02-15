@@ -1,6 +1,6 @@
 # Import python packages
 import streamlit as st
-
+import requests
 # Write directly to the app
 st.title("Customize your Smoothie")
 st.write(
@@ -50,9 +50,13 @@ ingredients_list = st.multiselect(
 
 # Using to insert
 if ingredients_list: # to show [] only when we select
+
+    ingredients_string = ''
     
-    ingredients_string = ' '.join(ingredients_list).strip()
-    # st.write(ingredients_string)
+    for ingredient in ingredients_list:
+        ingredients_string += ingredient
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + ingredient)
+        st_df = st.dataframe(data = smoothiefroot_response.json(), use_container_width = True)
     
     my_insert_stmt = ("""
         insert into SMOOTHIES.PUBLIC.ORDERS (name_on_order, ingredients)
@@ -70,8 +74,8 @@ if ingredients_list: # to show [] only when we select
 
 
 # Adding a RESTful API connection - SMOOTHIE nutrition information
-import requests
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-st.text(smoothiefroot_response) # simple: "Response <200>"
-st.text(smoothiefroot_response.json()) # modify the format: "json object"
-st_df = st.dataframe(data = smoothiefroot_response.json(), use_container_width = True)
+# import requests
+# smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+# st.text(smoothiefroot_response) # simple: "Response <200>"
+# st.text(smoothiefroot_response.json()) # modify the format: "json object"
+# st_df = st.dataframe(data = smoothiefroot_response.json(), use_container_width = True)
