@@ -64,15 +64,15 @@ if ingredients_list: # to show [] only when we select
     
     for ingredient in ingredients_list:
         ingredients_string += ingredient + ' '
+
+        # the search_on for the 
+        search_on = pd_df.loc[pd_df['FRUIT_NAME'] == ingredient, 'SEARCH_ON'].iloc[0] # the iloc[0] if we have multiple rows for a given ingredient
+        st.write('The search value for ', ingredient,' is ', search_on, '.')
         
         # The nutrient plan
         st.subheader(ingredient + ' Nutrient Info')
-        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + ingredient)
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + search_on)
         st_df = st.dataframe(data = smoothiefroot_response.json(), use_container_width = True)
-
-        # the search_on for the 
-        search_on = pd_df.loc[pd_df['FRUIT_NAME'] == ingredient, 'SEARCH_ON'].iloc[0]
-        st.write('The search value for ', ingredient,' is ', search_on, '.')
     
     my_insert_stmt = ("""
         insert into SMOOTHIES.PUBLIC.ORDERS (name_on_order, ingredients)
