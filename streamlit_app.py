@@ -54,7 +54,8 @@ if ingredients_list: # to show [] only when we select
     ingredients_string = ''
     
     for ingredient in ingredients_list:
-        ingredients_string += ingredient
+        ingredients_string += ingredient + ' '
+        st.subheader(ingredient + 'Nutrient Info')
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + ingredient)
         st_df = st.dataframe(data = smoothiefroot_response.json(), use_container_width = True)
     
